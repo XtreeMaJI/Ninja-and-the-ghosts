@@ -515,8 +515,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9681836, y: 0.9012804, z: 1}
+  m_Center: {x: 0.0027594808, y: 0.0493598, z: 0}
 --- !u!23 &1057265485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -781,4 +781,4 @@ MonoBehaviour:
     type: 3}
   shurikenInstance: {fileID: 1454315918415367981, guid: 2b346575f514f604c85208ef5070ce92,
     type: 3}
-  shurikenSpeed: 5
+  shurikenSpeed: 20
