@@ -783,3 +783,5 @@ MonoBehaviour:
     type: 3}
   shurikenSpeed: 20
   shurikenRotationSpeed: 5
+  ropeInstance: {fileID: 1064589903210080807, guid: 62af603b4c749574ab1ae6cb55c4eb17,
+    type: 3}
