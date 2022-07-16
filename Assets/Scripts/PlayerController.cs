@@ -9,11 +9,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shurikenInstance;
     public float shurikenSpeed = 5f;
-
-    void Start()
-    {
-        
-    }
+    public float shurikenRotationSpeed = 1.5f; //Количество оборотов сюрикена в секунду 
 
     void Update()
     {
@@ -32,7 +28,12 @@ public class PlayerController : MonoBehaviour
         GameObject shuriken = Instantiate(shurikenInstance, transform.position, Quaternion.identity);
         Rigidbody shurikenRb = shuriken.GetComponent<Rigidbody>();
         if (shurikenRb)
+        {
             shurikenRb.velocity = throwDir * shurikenSpeed;
+            //Устанавливаем скорость вращения сюрикена в радианах
+            shurikenRb.maxAngularVelocity = shurikenRotationSpeed * 2 * Mathf.PI;
+            shurikenRb.angularVelocity = -Vector3.forward * shurikenRotationSpeed * 2 * Mathf.PI;
+        }
 
     }
 
