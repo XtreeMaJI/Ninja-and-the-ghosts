@@ -13,13 +13,22 @@ public class PlayerController : MonoBehaviour
 
     public GameObject ropeInstance;
 
+    private Rigidbody rb;
+
+    private HingeJoint hingeJoint;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             ThrowShuriken();
         }
-        
+
     }
 
     private void ThrowShuriken()
@@ -27,11 +36,11 @@ public class PlayerController : MonoBehaviour
         Vector3 throwDir = GetMouseClickPoint() - transform.position;
         throwDir.Normalize();
 
-        GameObject shuriken = Instantiate(shurikenInstance, transform.position, Quaternion.identity);
-        if (!shuriken)
+        GameObject shurikenObj = Instantiate(shurikenInstance, transform.position, Quaternion.identity);
+        if (!shurikenObj)
             return;
 
-        Rigidbody shurikenRb = shuriken.GetComponent<Rigidbody>();
+        Rigidbody shurikenRb = shurikenObj.GetComponent<Rigidbody>();
         if (!shurikenRb)
             return;
 
@@ -39,6 +48,24 @@ public class PlayerController : MonoBehaviour
         //Устанавливаем скорость вращения сюрикена в радианах
         shurikenRb.maxAngularVelocity = shurikenRotationSpeed * 2 * Mathf.PI;
         shurikenRb.angularVelocity = -Vector3.forward * shurikenRotationSpeed * 2 * Mathf.PI;
+
+        Shuriken shuriken = shurikenObj.GetComponent<Shuriken>();
+        if (!shuriken)
+            return;
+
+        shuriken.onBranchHit += delegate ()
+        {
+            if (!rb)
+                return;
+
+            rb.useGravity = true;
+
+            //Устанавливаем ось вращения
+            hingeJoint = gameObject.AddComponent<HingeJoint>();
+            hingeJoint.anchor = shuriken.transform.position;
+            hingeJoint.axis = Vector3.forward;
+
+        };
         
         //Создаём верёвку и устанавливаем её параметры
         GameObject ropeObj = Instantiate(ropeInstance, transform.position, Quaternion.identity);
@@ -50,7 +77,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         stretchingRope.playerTransform = transform;
-        stretchingRope.shurikenTransform = shuriken.transform;
+        stretchingRope.shurikenTransform = shurikenObj.transform;
 
     }
 

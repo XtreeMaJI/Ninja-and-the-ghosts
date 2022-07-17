@@ -4,6 +4,9 @@ public class Shuriken : MonoBehaviour
 {
     private Rigidbody rb;
 
+    public delegate void OnBranchHit();
+    public OnBranchHit onBranchHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +20,8 @@ public class Shuriken : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.detectCollisions = false;
+
+            onBranchHit();
         }
     }
 
