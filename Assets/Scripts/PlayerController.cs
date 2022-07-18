@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
 
     private HingeJoint hingeJoint;
 
+    public GameObject ropeObj;
+    public GameObject shurikenObj;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,9 +27,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        //Можем кинуть новый сюрикен только если отпустили верёвку
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !hingeJoint && !ropeObj && !shurikenObj)
         {
             ThrowShuriken();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0) && hingeJoint && ropeObj && shurikenObj)
+        {
+            Destroy(hingeJoint);
+            Destroy(ropeObj);
+            Destroy(shurikenObj);
         }
 
     }
@@ -36,7 +47,7 @@ public class PlayerController : MonoBehaviour
         Vector3 throwDir = GetMouseClickPoint() - transform.position;
         throwDir.Normalize();
 
-        GameObject shurikenObj = Instantiate(shurikenInstance, transform.position, Quaternion.identity);
+        shurikenObj = Instantiate(shurikenInstance, transform.position, Quaternion.identity);
         if (!shurikenObj)
             return;
 
@@ -62,13 +73,16 @@ public class PlayerController : MonoBehaviour
 
             //Устанавливаем ось вращения
             hingeJoint = gameObject.AddComponent<HingeJoint>();
-            hingeJoint.anchor = shuriken.transform.position;
+            hingeJoint.anchor = transform.InverseTransformPoint(shuriken.transform.position);
             hingeJoint.axis = Vector3.forward;
+
+            //Убираем скорость и добавляем вектор силы, направленный вниз
+            rb.velocity = Vector3.zero;
 
         };
         
         //Создаём верёвку и устанавливаем её параметры
-        GameObject ropeObj = Instantiate(ropeInstance, transform.position, Quaternion.identity);
+        ropeObj = Instantiate(ropeInstance, transform.position, Quaternion.identity);
         if (!ropeObj)
             return;
 

@@ -25,4 +25,9 @@ public class Shuriken : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        onBranchHit = null;
+    }
+
 }
