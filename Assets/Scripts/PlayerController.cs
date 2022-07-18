@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
-    private HingeJoint hingeJoint;
+    new private HingeJoint hingeJoint;
 
     public GameObject ropeObj;
     public GameObject shurikenObj;
+
+    public float accelerationForce = 1000f; //Сила, применяющаяся к игроку, когда он цепляется к ветке
 
     private void Start()
     {
@@ -76,8 +78,8 @@ public class PlayerController : MonoBehaviour
             hingeJoint.anchor = transform.InverseTransformPoint(shuriken.transform.position);
             hingeJoint.axis = Vector3.forward;
 
-            //Убираем скорость и добавляем вектор силы, направленный вниз
-            rb.velocity = Vector3.zero;
+            //Добавляем вектор силы, направленный вниз
+            rb.AddForce(new Vector3(0, -accelerationForce, 0), ForceMode.Impulse);
 
         };
         
