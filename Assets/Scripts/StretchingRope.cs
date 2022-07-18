@@ -24,13 +24,13 @@ public class StretchingRope : MonoBehaviour
         Vector3 ropeMidPoint = playerPos + (shurikenPos - playerPos) / 2;
         transform.position = ropeMidPoint;
 
-        if (playerToShurikenDist == 0)
+        if ((shurikenPos.x - playerPos.x) == 0)
             return;
 
-        //Находим косинус угла между горизонталью и верёвкой
-        float angleCos = (shurikenPos.x - playerPos.x)/ playerToShurikenDist;
-        //Нахоим угол
-        float angle = Mathf.Acos(angleCos) * Mathf.Rad2Deg;
+        //Находим тангенс угла между горизонталью и верёвкой
+        float angleTan = (shurikenPos.y - playerPos.y)/(shurikenPos.x - playerPos.x);
+        //Находим угол
+        float angle = Mathf.Atan(angleTan) * Mathf.Rad2Deg;
         //Устанавливаем угол поворота вокруг оси z
         transform.localEulerAngles = new Vector3(0, 0, angle - VERTICAL_ORIENT_CORRECTION);
 
