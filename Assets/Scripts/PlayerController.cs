@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public float accelerationForce = 1000f; //Сила, применяющаяся к игроку, когда он цепляется к ветке
 
+    public float timeToDestroy = 1f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && !hingeJoint && !ropeObj && !shurikenObj)
         {
             ThrowShuriken();
+            StartCoroutine("DestroyShuriken");
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse0) && hingeJoint && ropeObj && shurikenObj)
@@ -40,6 +44,7 @@ public class PlayerController : MonoBehaviour
             Destroy(hingeJoint);
             Destroy(ropeObj);
             Destroy(shurikenObj);
+            StopCoroutine("DestroyShuriken");
         }
 
     }
@@ -81,6 +86,7 @@ public class PlayerController : MonoBehaviour
             //Добавляем вектор силы, направленный вниз
             rb.AddForce(new Vector3(0, -accelerationForce, 0), ForceMode.Impulse);
 
+            StopCoroutine("DestroyShuriken");
         };
         
         //Создаём верёвку и устанавливаем её параметры
@@ -111,6 +117,17 @@ public class PlayerController : MonoBehaviour
             clickPoint = rayInfo.point;
         
         return clickPoint;
+    }
+
+    private IEnumerator DestroyShuriken()
+    {
+        yield return new WaitForSeconds(timeToDestroy);
+        if(ropeObj && shurikenObj)
+        {
+            Destroy(ropeObj);
+            Destroy(shurikenObj);
+        }
+        
     }
 
 }
