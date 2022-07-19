@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private LevelManager lm;
+
+    private void Start()
+    {
+        lm = Object.FindObjectOfType<LevelManager>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
-            Debug.Log("GameOver");
+            lm.GameOver();
     }
 }
