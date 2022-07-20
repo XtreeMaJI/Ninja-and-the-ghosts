@@ -12,9 +12,12 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject lastBranch;
 
+    public float branchYPos { get; private set; }
+
     private void Start()
     {
         lastBranch = FindObjectOfType<Branch>().gameObject;
+        branchYPos = lastBranch.transform.position.y;  
     }
 
     void Update()

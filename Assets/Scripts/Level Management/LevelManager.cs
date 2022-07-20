@@ -6,9 +6,16 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public GameObject playerObj;
-    private int score = 0;
 
     public GameUI gameUI;
+    
+
+    public int score { get; private set; }
+
+    private void Start()
+    {
+        score = 0;
+    }
 
     void Update()
     {
