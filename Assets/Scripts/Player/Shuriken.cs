@@ -20,6 +20,7 @@ public class Shuriken : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.detectCollisions = false;
+            rb.isKinematic = true;
 
             onBranchHit();
         }

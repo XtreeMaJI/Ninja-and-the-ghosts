@@ -6,43 +6,41 @@ public class PlayerController : MonoBehaviour
     private const float MAX_RAY_DISTANCE = 100f;
 
     public Camera mainCamera;
-    public GameObject debugHitObj;
 
     public GameObject shurikenInstance;
     public float shurikenSpeed = 5f;
     public float shurikenRotationSpeed = 1.5f; //Количество оборотов сюрикена в секунду 
 
-    public GameObject ropeInstance;
-
     private Rigidbody rb;
 
     new private HingeJoint hingeJoint;
 
-    public GameObject ropeObj;
-    public GameObject shurikenObj;
+    private RopeController ropeController;
+    private GameObject shurikenObj;
 
     public float accelerationForce = 1000f; //Сила, применяющаяся к игроку, когда он цепляется к ветке
 
-    public float timeToDestroy = 1f;
+    public float shurikenDestroyTime = 1f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        ropeController = GetComponent<RopeController>();
     }
 
     void Update()
     {
         //Можем кинуть новый сюрикен только если отпустили верёвку
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !hingeJoint && !ropeObj && !shurikenObj)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && ropeController && !hingeJoint && !shurikenObj)
         {
             ThrowShuriken();
             StartCoroutine("DestroyShuriken");
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0) && hingeJoint && ropeObj && shurikenObj)
+        if (Input.GetKeyUp(KeyCode.Mouse0) && hingeJoint && ropeController && shurikenObj)
         {
             Destroy(hingeJoint);
-            Destroy(ropeObj);
+            ropeController.DestroyRope();
             Destroy(shurikenObj);
             StopCoroutine("DestroyShuriken");
         }
@@ -78,9 +76,11 @@ public class PlayerController : MonoBehaviour
 
             rb.useGravity = true;
 
+            GameObject ropePart = ropeController.CreateFragmentedRope();
+
             //Устанавливаем ось вращения
             hingeJoint = gameObject.AddComponent<HingeJoint>();
-            hingeJoint.anchor = transform.InverseTransformPoint(shuriken.transform.position);
+            hingeJoint.connectedBody = ropePart.GetComponent<Rigidbody>();
             hingeJoint.axis = Vector3.forward;
 
             //Добавляем вектор силы, направленный вниз
@@ -88,18 +88,9 @@ public class PlayerController : MonoBehaviour
 
             StopCoroutine("DestroyShuriken");
         };
-        
+
         //Создаём верёвку и устанавливаем её параметры
-        ropeObj = Instantiate(ropeInstance, transform.position, Quaternion.identity);
-        if (!ropeObj)
-            return;
-
-        StretchingRope stretchingRope = ropeObj.GetComponent<StretchingRope>();
-        if (!stretchingRope)
-            return;
-
-        stretchingRope.playerTransform = transform;
-        stretchingRope.shurikenTransform = shurikenObj.transform;
+        ropeController.StartCreateRope(shurikenObj);
 
     }
 
@@ -121,10 +112,10 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DestroyShuriken()
     {
-        yield return new WaitForSeconds(timeToDestroy);
-        if(ropeObj && shurikenObj)
+        yield return new WaitForSeconds(shurikenDestroyTime);
+        if(ropeController && shurikenObj)
         {
-            Destroy(ropeObj);
+            ropeController.DestroyRope();
             Destroy(shurikenObj);
         }
         

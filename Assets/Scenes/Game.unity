@@ -1871,6 +1871,7 @@ GameObject:
   - component: {fileID: 2141259939}
   - component: {fileID: 2141259943}
   - component: {fileID: 2141259944}
+  - component: {fileID: 2141259945}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1969,18 +1970,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
-  debugHitObj: {fileID: 2283317327875821008, guid: f2d1a3be7da265c4099a31dd21046dea,
-    type: 3}
   shurikenInstance: {fileID: 1454315918415367981, guid: 2b346575f514f604c85208ef5070ce92,
     type: 3}
   shurikenSpeed: 60
   shurikenRotationSpeed: 5
-  ropeInstance: {fileID: 1064589903210080807, guid: 62af603b4c749574ab1ae6cb55c4eb17,
-    type: 3}
-  ropeObj: {fileID: 0}
-  shurikenObj: {fileID: 0}
-  accelerationForce: 1000
-  timeToDestroy: 0.5
+  accelerationForce: 1
+  shurikenDestroyTime: 0.5
 --- !u!54 &2141259944
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1989,7 +1984,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141259938}
   serializedVersion: 2
-  m_Mass: 100
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -1997,3 +1992,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2141259945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141259938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7b77a6bd5b00245bdc92dba59e146b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ropePartInstance: {fileID: 3849134813378196337, guid: e62583cc3a076124ab12bd0f665ed9ae,
+    type: 3}
+  stretchingRopeInstance: {fileID: 1064589903210080800, guid: 62af603b4c749574ab1ae6cb55c4eb17,
+    type: 3}
