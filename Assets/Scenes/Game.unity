@@ -649,6 +649,7 @@ GameObject:
   - component: {fileID: 576876479}
   - component: {fileID: 576876478}
   - component: {fileID: 576876477}
+  - component: {fileID: 576876483}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -699,8 +700,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
-  accelerationForce: 1000
-  timeToDestroyShuriken: 1
+  timeToDestroyShuriken: 2
+  isIdle: 1
+  characterAnimator: {fileID: 632180729}
+  firstJumpForce: 650
 --- !u!54 &576876480
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -747,6 +750,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576876483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576876476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0413abf938fd96c4d9c1bd46ed302b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterObj: {fileID: 632180723}
+  accelerationForce: 1000
 --- !u!1001 &632180722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,6 +846,12 @@ PrefabInstance:
 --- !u!1 &632180723 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2a6463d987cd1cb4eaafca2e5ad1b2b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 632180722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &632180729 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 2a6463d987cd1cb4eaafca2e5ad1b2b9,
     type: 3}
   m_PrefabInstance: {fileID: 632180722}
   m_PrefabAsset: {fileID: 0}

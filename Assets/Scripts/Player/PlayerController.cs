@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private ShurikenController shurikenController;
     private HangController hangController;
 
+    public bool isIdle = true;
+    public Animator characterAnimator;
+    public float firstJumpForce = 350f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,6 +28,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //Пока не совершим первый прыжок, не можем кидать верёвку
+        if ( isIdle )
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                SetAnimationState("isFlying");
+
+                rb.useGravity = true;
+                Vector3 jumpDir = new Vector3(1f, 2f, 0f);
+                jumpDir.Normalize();
+                rb.AddForce(jumpDir * firstJumpForce, ForceMode.Impulse);
+
+                isIdle = false;
+            }
+            return;
+        }
+
         //Можем кинуть новый сюрикен только если предыдущий уничтожен
         if (Input.GetKeyDown(KeyCode.Mouse0) && !shurikenController.IsShurikenExist())
             ThrowShuriken();
@@ -34,6 +55,7 @@ public class PlayerController : MonoBehaviour
             shurikenController.DestroyShuriken();
             ropeController.DestroyRope();
             StopCoroutine("DestroyShuriken");
+            SetAnimationState("isFlying");
         }
 
     }
@@ -50,9 +72,11 @@ public class PlayerController : MonoBehaviour
         {
             hangController.StartHanging();
             StopCoroutine("DestroyShuriken");
+            SetAnimationState("isHanging");
         });
 
         StartCoroutine("DestroyShuriken");
+        SetAnimationState("isThrowing");
     }
 
     //Получаем точку на плоскости MouseRayBlocker, куда кликнули мышкой
@@ -76,6 +100,21 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(timeToDestroyShuriken);
         ropeController.DestroyRope();
         shurikenController.DestroyShuriken();
+        SetAnimationState("isFlying");
+    }
+
+    private void DisableAnimationStates()
+    {
+        characterAnimator.SetBool("isIdle", false);
+        characterAnimator.SetBool("isFlying", false);
+        characterAnimator.SetBool("isThrowing", false);
+        characterAnimator.SetBool("isHanging", false);
+    }
+
+    private void SetAnimationState(string state)
+    {
+        DisableAnimationStates();
+        characterAnimator.SetBool(state, true);
     }
 
 }

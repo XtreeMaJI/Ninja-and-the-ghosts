@@ -8,12 +8,26 @@ public class HangController : MonoBehaviour
     private ShurikenController shurikenController;
     new private HingeJoint hingeJoint;
 
+    private RopeController ropeController;
+    public GameObject characterObj;
+
     public float accelerationForce = 1000f; //—ила, примен€юща€с€ к игроку, когда он цепл€етс€ к ветке
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         shurikenController = GetComponent<ShurikenController>();
+        ropeController = GetComponent<RopeController>();
+    }
+
+    private void LateUpdate()
+    {
+        var rope = ropeController.GetRope();
+        if (rope)
+        {
+            characterObj.transform.eulerAngles = rope.transform.eulerAngles;
+        }
+            
     }
 
     public void StartHanging()
