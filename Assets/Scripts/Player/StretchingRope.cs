@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StretchingRope : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class StretchingRope : MonoBehaviour
     public Transform playerTransform { get; set; }
     public Transform shurikenTransform { get; set; }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         Vector3 shurikenPos = shurikenTransform.position;
         Vector3 playerPos = playerTransform.position;
