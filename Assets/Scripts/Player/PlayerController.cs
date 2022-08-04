@@ -18,12 +18,15 @@ public class PlayerController : MonoBehaviour
     public Animator characterAnimator;
     public float firstJumpForce = 350f;
 
+    public ThrowAnimationHandler throwAnimHandler;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         ropeController = GetComponent<RopeController>();
         shurikenController = GetComponent<ShurikenController>();
         hangController = GetComponent<HangController>();
+        throwAnimHandler.onThrowAnimEnd = ThrowShuriken;
     }
 
     void Update()
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         //Можем кинуть новый сюрикен только если предыдущий уничтожен
         if (Input.GetKeyDown(KeyCode.Mouse0) && !shurikenController.IsShurikenExist())
-            ThrowShuriken();
+            SetAnimationState("isThrowing");
 
         if (Input.GetKeyUp(KeyCode.Mouse0) && hangController.IsHanging())
         {
@@ -76,7 +79,7 @@ public class PlayerController : MonoBehaviour
         });
 
         StartCoroutine("DestroyShuriken");
-        SetAnimationState("isThrowing");
+        SetAnimationState("isFlying");
     }
 
     //Получаем точку на плоскости MouseRayBlocker, куда кликнули мышкой

@@ -4,6 +4,7 @@ public class RopeController : MonoBehaviour
 {
     public StretchingRope stretchingRopeInst;
     private GameObject rope;
+    public Transform hangPointTransform;
 
     public void CreateRope(Transform shurikenTransform)
     {
@@ -12,7 +13,7 @@ public class RopeController : MonoBehaviour
         if (!stretchingRope)
             return;
 
-        stretchingRope.playerTransform = transform;
+        stretchingRope.hangPointTransform = hangPointTransform;
         stretchingRope.shurikenTransform = shurikenTransform;
     }
 

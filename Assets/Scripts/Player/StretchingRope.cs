@@ -4,13 +4,13 @@ public class StretchingRope : MonoBehaviour
 {
     private const float VERTICAL_ORIENT_CORRECTION = 90f;
 
-    public Transform playerTransform { get; set; }
+    public Transform hangPointTransform { get; set; }
     public Transform shurikenTransform { get; set; }
 
     void LateUpdate()
     {
         Vector3 shurikenPos = shurikenTransform.position;
-        Vector3 playerPos = playerTransform.position;
+        Vector3 playerPos = hangPointTransform.position;
         Vector3 scale = transform.localScale;
 
         //Получаем расстояние между игроком и сюрикеном
