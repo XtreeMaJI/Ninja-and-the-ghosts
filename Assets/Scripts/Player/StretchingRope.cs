@@ -26,9 +26,10 @@ public class StretchingRope : MonoBehaviour
             return;
 
         //Находим тангенс угла между горизонталью и верёвкой
-        float angleTan = (shurikenPos.y - playerPos.y)/(shurikenPos.x - playerPos.x);
+        float angleTan = (shurikenPos.x - playerPos.x)/playerToShurikenDist;
         //Находим угол
-        float angle = Mathf.Atan(angleTan) * Mathf.Rad2Deg;
+        float angle = Mathf.Acos(angleTan) * Mathf.Rad2Deg;
+        angle *= Mathf.Sign(shurikenPos.y - playerPos.y);
         //Устанавливаем угол поворота вокруг оси z
         transform.localEulerAngles = new Vector3(0, 0, angle - VERTICAL_ORIENT_CORRECTION);
 
