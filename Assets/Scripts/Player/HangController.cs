@@ -24,10 +24,9 @@ public class HangController : MonoBehaviour
     {
         var rope = ropeController.GetRope();
         if (rope)
-        {
             characterObj.transform.eulerAngles = rope.transform.eulerAngles;
-        }
-            
+        else
+            characterObj.transform.eulerAngles = new Vector3(0f, 0f, 0f);
     }
 
     public void StartHanging()
