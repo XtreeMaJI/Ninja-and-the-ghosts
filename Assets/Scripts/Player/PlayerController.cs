@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public float firstJumpForce = 350f;
 
     public ThrowAnimationHandler throwAnimHandler;
+    public GameObject characterObj;
 
     private void Start()
     {
@@ -60,6 +61,10 @@ public class PlayerController : MonoBehaviour
             StopCoroutine("DestroyShuriken");
             SetAnimationState("isFlying");
         }
+
+        //Если не держимся за верёвку, то персонаж не должен крутиться
+        if (!hangController.IsHanging())
+            characterObj.transform.eulerAngles = Vector3.zero;
 
     }
 
