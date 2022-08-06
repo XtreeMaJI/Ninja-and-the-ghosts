@@ -702,7 +702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shurikenInstance: {fileID: 4820319635163444711, guid: 2b346575f514f604c85208ef5070ce92,
     type: 3}
-  shurikenSpeed: 40
+  shurikenSpeed: 60
   shurikenRotationSpeed: 4
 --- !u!114 &576876478
 MonoBehaviour:

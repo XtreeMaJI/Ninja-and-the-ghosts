@@ -22,9 +22,7 @@ public class HangController : MonoBehaviour
 
     private void LateUpdate()
     {
-        var rope = ropeController.GetRope();
-        if (rope)
-            characterObj.transform.eulerAngles = rope.transform.eulerAngles;
+        SetCharacterPos();
     }
 
     public void StartHanging()
@@ -32,15 +30,18 @@ public class HangController : MonoBehaviour
         if (!rb)
             return;
 
-        rb.useGravity = true;
-
         //”станавливаем ось вращени€
         hingeJoint = gameObject.AddComponent<HingeJoint>();
         hingeJoint.anchor = transform.InverseTransformPoint(shurikenController.GetShuriken().transform.position);
         hingeJoint.axis = Vector3.forward;
 
-        //ƒобавл€ем вектор силы, направленный вниз
-        rb.AddForce(new Vector3(0, -accelerationForce, 0), ForceMode.Impulse);
+        SetCharacterPos();
+
+        //ѕримен€ем вектор силы, направленный вниз по локальной оси персонажа
+        Vector3 forceDir = characterObj.transform.TransformVector(Vector3.right);
+        Vector3 force = forceDir * accelerationForce;
+        rb.AddForce(force, ForceMode.Impulse);
+
     }
 
     public void StopHanging()
@@ -54,6 +55,13 @@ public class HangController : MonoBehaviour
             return true;
 
         return false;
+    }
+
+    private void SetCharacterPos()
+    {
+        var rope = ropeController.GetRope();
+        if (rope)
+            characterObj.transform.eulerAngles = rope.transform.eulerAngles;
     }
 
 }
