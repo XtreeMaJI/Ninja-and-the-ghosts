@@ -62,9 +62,14 @@ public class PlayerController : MonoBehaviour
             SetAnimationState("isFlying");
         }
 
-        //Если не держимся за верёвку, то персонаж не должен крутиться
+        //Если не держимся за верёвку, то персонаж не должен крутиться и z координата должна быть нулём
         if (!hangController.IsHanging())
+        {
             characterObj.transform.eulerAngles = Vector3.zero;
+            Vector3 pos = rb.position;
+            pos.z = 0f;
+            rb.position = pos;
+        }    
 
     }
 

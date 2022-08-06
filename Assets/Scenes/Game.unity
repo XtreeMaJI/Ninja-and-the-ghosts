@@ -230,11 +230,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4789224285325908, guid: 3b703535d10b66844a909b8cd4b12fc5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.76
+      value: 21.08
       objectReference: {fileID: 0}
     - target: {fileID: 4789224285325908, guid: 3b703535d10b66844a909b8cd4b12fc5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -25.76
+      value: -22.49
       objectReference: {fileID: 0}
     - target: {fileID: 4789224285325908, guid: 3b703535d10b66844a909b8cd4b12fc5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -266,6 +266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4789224285325908, guid: 3b703535d10b66844a909b8cd4b12fc5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64667215755643054, guid: 3b703535d10b66844a909b8cd4b12fc5,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -801,7 +806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
-  timeToDestroyShuriken: 0.5
+  timeToDestroyShuriken: 0.8
   isIdle: 1
   characterAnimator: {fileID: 632180729}
   firstJumpForce: 650
@@ -1262,28 +1267,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 894319583}
-  - component: {fileID: 894319582}
+  - component: {fileID: 894319584}
   m_Layer: 0
-  m_Name: LevelGenerator
+  m_Name: TreeGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &894319582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894319581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 212c70b28f5e3964d8f831115a56041f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  branchInstance: {fileID: 985723331}
-  playerObj: {fileID: 632180723}
 --- !u!4 &894319583
 Transform:
   m_ObjectHideFlags: 0
@@ -1299,6 +1290,22 @@ Transform:
   m_Father: {fileID: 2105139948}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &894319584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894319581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f88c2c7e022c64fb9bb66136b30b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DISTANCE_FOR_GENERATE: 50
+  MIN_TREE_INTERVAL: 45
+  MAX_TREE_INTERVAL: 60
+  treeInstance: {fileID: 985723331}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1530,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 47419998}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &985723336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985723331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5762f37ed53244f4c8072de48c553d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1057265483
 GameObject:
   m_ObjectHideFlags: 0
