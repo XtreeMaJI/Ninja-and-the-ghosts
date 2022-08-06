@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class EnemyGenerator : MonoBehaviour
     public Transform deathZoneZTransform;
 
     private LevelManager lm;
-    private LevelGenerator levelGenerator;
+    private TreeGenerator levelGenerator;
 
     private int lastCheckedStore = 0; //Список счетов, на которых уже проводилась проверка на необходимость спавна
 
@@ -26,7 +26,7 @@ public class EnemyGenerator : MonoBehaviour
     private void Start()
     {
         lm = Object.FindObjectOfType<LevelManager>();  
-        levelGenerator = Object.FindObjectOfType<LevelGenerator>();
+        levelGenerator = Object.FindObjectOfType<TreeGenerator>();
     }
 
     private void Update()
@@ -60,3 +60,4 @@ public class EnemyGenerator : MonoBehaviour
     }
 
 }
+*/

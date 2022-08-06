@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TreeGenerator : MonoBehaviour
 {
-    public float DISTANCE_FOR_GENERATE = 50f;
-    public float MIN_TREE_INTERVAL = 60f;
-    public float MAX_TREE_INTERVAL = 60f;
+    public float distanceForGenerate = 50f;
+    public float minTreeInterval = 60f;
+    public float maxTreeInterval = 60f;
 
     public GameObject treeInstance;
     private GameObject playerObj;
@@ -28,16 +28,16 @@ public class TreeGenerator : MonoBehaviour
         if (!treeInstance || !lastTree)
             return;
 
-        float treeInterval = Random.Range(MIN_TREE_INTERVAL, MAX_TREE_INTERVAL);
-        Vector3 lastBranchPos = lastTree.transform.position;
-        Vector3 branchPos = new Vector3(lastBranchPos.x + treeInterval, lastBranchPos.y, lastBranchPos.z);
-        lastTree = Instantiate(treeInstance, branchPos, Quaternion.identity);
+        float treeInterval = Random.Range(minTreeInterval, maxTreeInterval);
+        Vector3 lastTreePos = lastTree.transform.position;
+        Vector3 treePos = new Vector3(lastTreePos.x + treeInterval, lastTreePos.y, lastTreePos.z);
+        lastTree = Instantiate(treeInstance, treePos, Quaternion.identity);
     }
 
     bool IsShouldGenerateTree()
     {
         float distance = Mathf.Abs(playerObj.transform.position.x - lastTree.transform.position.x);
-        if (distance < DISTANCE_FOR_GENERATE)
+        if (distance < distanceForGenerate)
             return true;
 
         return false;
