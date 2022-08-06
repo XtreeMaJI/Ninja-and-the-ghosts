@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterObj: {fileID: 632180723}
-  accelerationForce: 500
+  accelerationForce: 1000
 --- !u!1001 &632180722
 PrefabInstance:
   m_ObjectHideFlags: 0

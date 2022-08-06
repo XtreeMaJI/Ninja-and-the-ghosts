@@ -20,6 +20,25 @@ public class HangController : MonoBehaviour
         ropeController = GetComponent<RopeController>();
     }
 
+    private void FixedUpdate()
+    {
+        if (!IsHanging())
+            return;
+
+        //Не даём персонажу подниматься выше сюрикена во время качания
+        Vector3 shurikenPos = shurikenController.GetShuriken().transform.position;
+        Vector3 characterPos = transform.position;
+        if (characterPos.y > shurikenPos.y)
+        {
+            float sign = Mathf.Sign(shurikenPos.x - characterPos.x);
+            Vector3 velocityDir = characterObj.transform.TransformVector(sign * Vector3.right);
+            float speed = rb.velocity.magnitude;
+            rb.velocity = velocityDir * speed;
+
+        }
+            
+    }
+
     private void LateUpdate()
     {
         SetCharacterPos();
