@@ -56,8 +56,13 @@ public class HangController : MonoBehaviour
 
         SetCharacterPos();
 
-        //Применяем вектор силы, направленный вниз по локальной оси персонажа
+        //Применяем вектор силы, по направлению движения персонажа
+        Vector3 velocity = rb.velocity;
         Vector3 forceDir = characterObj.transform.TransformVector(Vector3.right);
+        //Если вектор силы и вектор скорости направлены в разные стороны, то меняем направление векотора силы
+        if (Vector3.Dot(forceDir, velocity) < 0)
+            forceDir = characterObj.transform.TransformVector(-Vector3.right);
+
         Vector3 force = forceDir * accelerationForce;
         rb.AddForce(force, ForceMode.Impulse);
 
