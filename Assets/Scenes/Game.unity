@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f398a254016acec45abb0c34637c3e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shurikenInstance: {fileID: 4820319635163444711, guid: 2b346575f514f604c85208ef5070ce92,
+  shurikenInstance: {fileID: 7261102863081774369, guid: 2b346575f514f604c85208ef5070ce92,
     type: 3}
   shurikenSpeed: 60
   shurikenRotationSpeed: 4

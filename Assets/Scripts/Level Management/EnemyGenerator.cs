@@ -22,7 +22,6 @@ public class EnemyGenerator : MonoBehaviour
     {
         lm = Object.FindObjectOfType<LevelManager>();
         envDestroyer = Object.FindObjectOfType<EnvironmentDestroyer>();
-        SpawnEnemy();
     }
 
     private void Update()
