@@ -1,32 +1,28 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyGenerator : MonoBehaviour
 {
-    //Каждый раз, когда счёт увеличится на это значение будет проверка на то, нужно ли спавнить врага
-    public int scoreBetweenSpawn = 10;
-    public float spawnDistanceFromPlayer = 50; //Расстояние от игрока, на котором появится враг
-
-    //Смещения по высоте для спавна врага
-    public float bottomSpawnShiftY = 0; 
-    public float topSpawnShiftY = 1;
-
+    public int scoreBetweenSpawn = 10; //Каждый раз, когда счёт увеличится на это значение будет проверка на то, нужно ли спавнить врага
+    public float spawnDistanceFromPlayer = 50f; //Расстояние от игрока, на котором появится враг
     public GameObject enemyInstance;
 
-    public Transform deathZoneZTransform;
-
     private LevelManager lm;
-    private TreeGenerator levelGenerator;
 
-    private int lastCheckedStore = 0; //Список счетов, на которых уже проводилась проверка на необходимость спавна
+    private int lastCheckedStore = 0; //Последний счёт, на котором уже проводилась проверка на необходимость спавна
+    public int spawnAmountThresh = 10; //Количесвтов проверок на спавн, после которого враг будет спавниться после каждой проверки
 
-    public int spawnProbThresh = 10; //Количесвтов проверок на спавн, после которого враг будет спавниться после каждой проверки
+    public float bottomSpawnBorder = 0f;
+    public float topSpawnBorder = 0f;
+
+    private EnvironmentDestroyer envDestroyer;
 
     private void Start()
     {
-        lm = Object.FindObjectOfType<LevelManager>();  
-        levelGenerator = Object.FindObjectOfType<TreeGenerator>();
+        lm = Object.FindObjectOfType<LevelManager>();
+        envDestroyer = Object.FindObjectOfType<EnvironmentDestroyer>();
+        SpawnEnemy();
     }
 
     private void Update()
@@ -44,7 +40,7 @@ public class EnemyGenerator : MonoBehaviour
     {
         //Чем больше проверок на спавн врага прошли, тем больше вероятность спавна
         int checksCount = lastCheckedStore / scoreBetweenSpawn;
-        float maxProb = (float)checksCount / (float)spawnProbThresh;
+        float maxProb = (float)checksCount / (float)spawnAmountThresh;
 
         return Random.Range(0f, 1f) <= maxProb;
     }
@@ -52,12 +48,16 @@ public class EnemyGenerator : MonoBehaviour
     private void SpawnEnemy()
     {
         float x = lm.playerObj.transform.position.x + spawnDistanceFromPlayer;
-        float y = Random.Range(deathZoneZTransform.position.y + bottomSpawnShiftY, levelGenerator.branchYPos - topSpawnShiftY);
+        float y = Random.Range(bottomSpawnBorder, topSpawnBorder);
         Vector3 spawnPos = new Vector3(x, y, 0f);
 
+        Vector3 spawnRot = new Vector3(0f, 0f, 0f);
+        spawnRot.y = -90f;
 
-        Instantiate(enemyInstance, spawnPos, Quaternion.identity);
+        GameObject enemyObj = Instantiate(enemyInstance, spawnPos, Quaternion.identity);
+        enemyObj.transform.eulerAngles = spawnRot;
+
+        envDestroyer.AddToList(enemyObj);
     }
 
 }
-*/
