@@ -14,12 +14,14 @@ public class EnvironmentGenerator : MonoBehaviour
     
     private GameObject playerObj;
     private Vector3 lastObjPos = Vector3.zero;
+    private EnvironmentDestroyer envDestroyer;
 
     private void Start()
     {
         playerObj = Object.FindObjectOfType<PlayerController>().gameObject;
-        Vector3 firstObjPos = new Vector3(firstObjX, yPos, zPos);
-        lastObjPos = Instantiate(objInstance, firstObjPos, Quaternion.identity).transform.position;
+        envDestroyer = Object.FindObjectOfType<EnvironmentDestroyer>();
+
+        GenerateObj(firstObjX);
     }
 
     void Update()
@@ -28,14 +30,20 @@ public class EnvironmentGenerator : MonoBehaviour
             GenerateObj();
     }
 
-    void GenerateObj()
+    void GenerateObj(float? xPos = null)
     {
         if (!objInstance)
             return;
 
         float objInterval = Random.Range(minInterval, maxInterval);
         Vector3 objPos = new Vector3(lastObjPos.x + objInterval, yPos, zPos);
-        lastObjPos = Instantiate(objInstance, objPos, Quaternion.identity).transform.position;
+        //Если координата для спавна задана, то используем её
+        if (xPos != null)
+            objPos.x = (float)xPos;
+
+        GameObject newObj = Instantiate(objInstance, objPos, Quaternion.identity);
+        envDestroyer.AddToList(newObj);
+        lastObjPos = newObj.transform.position;
     }
 
     bool IsShouldGenerateObj()
