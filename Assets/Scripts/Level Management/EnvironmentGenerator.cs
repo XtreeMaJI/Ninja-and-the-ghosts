@@ -8,8 +8,9 @@ public class EnvironmentGenerator : MonoBehaviour
     public float distanceForGenerate = 50f;
     public float minInterval = 60f;
     public float maxInterval = 60f;
-    public float yPos = 0f;
+    public float yPos = 0f; 
     public float zPos = 0f;
+    public float firstObjX = 0f; //Позиция первого объекта по координате х
     
     private GameObject playerObj;
     private Vector3 lastObjPos = Vector3.zero;
@@ -17,6 +18,8 @@ public class EnvironmentGenerator : MonoBehaviour
     private void Start()
     {
         playerObj = Object.FindObjectOfType<PlayerController>().gameObject;
+        Vector3 firstObjPos = new Vector3(firstObjX, yPos, zPos);
+        lastObjPos = Instantiate(objInstance, firstObjPos, Quaternion.identity).transform.position;
     }
 
     void Update()
