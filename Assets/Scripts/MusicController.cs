@@ -5,11 +5,11 @@ using UnityEngine;
 public class MusicController : MonoBehaviour
 {
     public List<AudioSource> musicList;
-    private AudioSource currentTrack = null;
+    private static AudioSource currentTrack = null;
 
     private void Start()
     {
-        StartNewTrack();
+        StartCoroutine("TryStartNewTrack");
     }
 
     private void StartNewTrack()
@@ -23,13 +23,15 @@ public class MusicController : MonoBehaviour
         currentTrack = musicList[trackId];
 
         currentTrack.Play();
+
     }
 
     IEnumerator TryStartNewTrack()
     {
         yield return new WaitForSeconds(1);
-        if (!currentTrack.isPlaying)
+        if (!currentTrack || !currentTrack.isPlaying)
             StartNewTrack();
+        StartCoroutine("TryStartNewTrack");
     }
 
 }
